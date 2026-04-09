@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
 import { DrawerModule } from 'primeng/drawer';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CookieConsent } from '@/pages/service/cookie/cookie-consent';
 
 @Component({
   selector: 'app-cookie-consent-dialog',
-  imports: [DialogModule, ButtonModule, DrawerModule, FormsModule, CommonModule],
+  imports: [ ButtonModule, DrawerModule, CommonModule],
   templateUrl: './cookie-consent-dialog.html',
   styleUrl: './cookie-consent-dialog.scss'
 })
