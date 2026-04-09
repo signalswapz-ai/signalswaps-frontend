@@ -2,12 +2,6 @@ import { Apiservice } from '@/service/apiservice';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-export interface RegisterPayload {
-  name: string;
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
 
 export interface LoginPayload {
   email: string;
@@ -35,7 +29,7 @@ export interface ResetPasswordPayload {
 export class Authservice {
   constructor(private apiService: Apiservice) {}
 
-  register(payload: RegisterPayload): Observable<AuthResponse> {
+  register(payload: any): Observable<AuthResponse> {
       return this.apiService.post<AuthResponse>('auth/register', payload);
   }
 
