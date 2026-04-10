@@ -68,10 +68,11 @@ export class Register {
         const payload = {
             email: this.email.trim()
         };
+        localStorage.setItem('email-register', this.email.trim());
         this.authService.register(payload).subscribe({
             next: () => {
                 this.isLoading = false;
-                this.successDialog = true;
+                this.router.navigate(['/auth/verification-new-register']);
             },
             error: (error) => {
                 this.isLoading = false;
