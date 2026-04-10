@@ -49,7 +49,7 @@ export class InputDemo {
         }
     }
     openTelegram() {
-    const telegramUsername = 'tradexcoinsupport';
+    const telegramUsername = 'Signalswaps';
     const message = encodeURIComponent('Hello, I need support.');
     const url = `https://t.me/${telegramUsername}?text=${message}`;
     window.open(url, '_blank', 'noopener,noreferrer');

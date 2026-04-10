@@ -1,88 +1,86 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import { finalize } from 'rxjs';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
 import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
-import { FluidModule } from 'primeng/fluid';
 import { Authservice } from './service/authservice';
-import { DialogModule } from 'primeng/dialog';
-import { CommonModule } from '@angular/common';
-
 
 @Component({
-    selector: 'app-login',
-    standalone: true,
-    imports: [ButtonModule, CheckboxModule, InputTextModule, PasswordModule, FormsModule, RouterModule, RippleModule, AppFloatingConfigurator 
-        ,FluidModule , DialogModule , FluidModule ,CommonModule],
-    templateUrl:"./login.html"
+  selector: 'app-login',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterModule,
+    AppFloatingConfigurator,
+    ButtonModule,
+    CheckboxModule,
+    DialogModule,
+    FloatLabelModule,
+    FluidModule,
+    InputTextModule,
+    PasswordModule,
+    RippleModule,
+  ],
+  templateUrl: './login.html',
 })
 export class Login {
-    email: string = '';
-    password: string = '';
-    checked: boolean = false;
-    isLoading: boolean = false;
-    errorDialog: boolean = false;
-    errorMessage: string = '';
+  email = '';
+  password = '';
+  checked = false;
+  isLoading = false;
+  errorDialog = false;
+  errorMessage = '';
 
-    constructor(
-        private authService: Authservice,
-        private router: Router
-        
-    ) {}
+  constructor(
+    private authService: Authservice,
+    private router: Router
+  ) {}
 
-    onLogin() {
-        if (!this.email || !this.password) {
-            this.errorMessage = 'Please provide email and password';
-            this.errorDialog = true;
-            return;
-        }
-
-        this.isLoading = true;
-
-        const payload = {
-            email: this.email,
-            password: this.password
-        };
-
-        this.authService.login(payload).subscribe({
-            next: (response) => {
-                this.isLoading = false;
-                if (response) {
-                    localStorage.setItem('user', JSON.stringify(response));
-                    if (response?.data?.token) {
-                        localStorage.setItem('token', response.data?.token);
-                      }
-                }
-                this.router.navigate(['/app/dashboard']);
-            },
-            error: (error) => {
-                this.isLoading = false;
-                this.errorMessage = error.error?.message || 'Login failed. Please check your credentials.';
-                this.errorDialog = true;
-            }
-        });
+  onLogin(): void {
+    const email = this.email.trim();
+    const password = this.password.trim();
+    if (!email || !password) {
+      this.errorMessage = 'Please provide email and password';
+      this.errorDialog = true;
+      return;
     }
 
-    closeErrorDialog() {
-        this.errorDialog = false;
-        this.errorMessage = '';
-        this.email = '';
-        this.password = '';
-        this.checked = false;
-        this.isLoading = false;
-        this.errorDialog = false;
-        this.errorMessage = '';
-        this.email = '';
-        this.password = '';
-        this.checked = false;
-        this.isLoading = false;
-        this.errorDialog = false;
-    }
+    this.isLoading = true;
+    this.authService
+      .login({ email, password })
+      .pipe(finalize(() => (this.isLoading = false)))
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            localStorage.setItem('user', JSON.stringify(response));
+            const token = response.data?.token;
+            if (token) localStorage.setItem('token', token);
+          }
+          this.router.navigate(['/app/dashboard']);
+        },
+        error: (error) => {
+          this.errorMessage =
+            error.error?.message || 'Login failed. Please check your credentials.';
+          this.errorDialog = true;
+        },
+      });
+  }
 
-
-
+  closeErrorDialog(): void {
+    this.errorDialog = false;
+    this.errorMessage = '';
+    this.email = '';
+    this.password = '';
+    this.checked = false;
+  }
 }
