@@ -9,6 +9,7 @@ import { FluidModule } from 'primeng/fluid';
 import { InputOtpModule } from 'primeng/inputotp';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
+import { Authservice } from '../service/authservice';
 
 @Component({
   selector: 'app-verification-new-register',
@@ -28,12 +29,15 @@ import { RippleModule } from 'primeng/ripple';
   styleUrl: './verification-new-register.scss',
 })
 export class VerificationNewRegister implements OnInit {
-  verificationCode: string | null = null;
-  displayEmail = '';
+  verificationCode: any;
+  displayEmail : any;
   helpDialog = false;
   isLoading = false;
+  
+  errorDialog = false;
+  errorMessage: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router , private authService: Authservice) {}
 
   ngOnInit(): void {
     this.getEmailRegister();
@@ -58,10 +62,26 @@ export class VerificationNewRegister implements OnInit {
     this.helpDialog = false;
   }
 
-  onContinue(): void {
-    if (!this.isCodeComplete()) return;
-    this.isLoading = true;
-    // TODO: call API with this.verificationCode and this.displayEmail
-    this.isLoading = false;
+   onContinue(): void {
+      if (!this.isCodeComplete()) return;
+      this.isLoading = true;
+      const payload = {
+        email: this.displayEmail.trim().toLowerCase(),
+        code: this.verificationCode?.trim()
+      };
+      console.log(payload);
+      
+      this.authService.verifyActivationCode(payload).subscribe({
+        next: () => {
+          this.isLoading = false;
+          this.router.navigate(['/auth/create-password']);
+        },
+        error: (error) => {
+          this.isLoading = false;
+          this.errorMessage = error.error?.message || 'Verification failed. Please try again.';
+          this.errorDialog = true;
+        },
+      });
+  
   }
 }
