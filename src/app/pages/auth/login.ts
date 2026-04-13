@@ -32,6 +32,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ProgressSpinnerModule
   ],
   templateUrl: './login.html',
+  styleUrl: './login.scss',
+
 })
 export class Login {
   email = '';
