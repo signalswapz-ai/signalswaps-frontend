@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { AppFloatingConfigurator } from '@/layout/component/app.floatingconfigurator';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FluidModule } from 'primeng/fluid';
@@ -17,7 +16,6 @@ import { Authservice } from '../service/authservice';
     CommonModule,
     FormsModule,
     RouterModule,
-    AppFloatingConfigurator,
     ButtonModule,
     DialogModule,
     FluidModule,

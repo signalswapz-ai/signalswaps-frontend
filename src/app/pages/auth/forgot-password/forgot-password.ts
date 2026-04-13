@@ -12,7 +12,6 @@ import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { AppFloatingConfigurator } from '@/layout/component/app.floatingconfigurator';
 
 @Component({
     selector: 'app-forgot-password',
@@ -24,7 +23,6 @@ import { AppFloatingConfigurator } from '@/layout/component/app.floatingconfigur
         FormsModule,
         RouterModule,
         RippleModule,
-        AppFloatingConfigurator,
         FluidModule,
         FloatLabelModule,
         DialogModule,
