@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Authservice } from '../service/authservice';
 import { Router, RouterModule } from '@angular/router';
-import { AppFloatingConfigurator } from '@/layout/component/app.floatingconfigurator';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +13,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-register',
-  imports: [AppFloatingConfigurator, ButtonModule, InputTextModule, FormsModule, RouterModule, RippleModule, DialogModule, FloatLabelModule , FluidModule ,CommonModule,ProgressSpinnerModule],
+  imports: [ ButtonModule, InputTextModule, FormsModule, RouterModule, RippleModule, DialogModule, FloatLabelModule , FluidModule ,CommonModule,ProgressSpinnerModule],
   templateUrl: './register.html',
   styleUrl: './register.scss'
 })
