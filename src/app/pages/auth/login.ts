@@ -11,8 +11,8 @@ import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { RippleModule } from 'primeng/ripple';
-import { AppFloatingConfigurator } from '../../layout/component/app.floatingconfigurator';
 import { Authservice } from './service/authservice';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +21,6 @@ import { Authservice } from './service/authservice';
     CommonModule,
     FormsModule,
     RouterModule,
-    AppFloatingConfigurator,
     ButtonModule,
     CheckboxModule,
     DialogModule,
@@ -30,6 +29,7 @@ import { Authservice } from './service/authservice';
     InputTextModule,
     PasswordModule,
     RippleModule,
+    ProgressSpinnerModule
   ],
   templateUrl: './login.html',
 })
