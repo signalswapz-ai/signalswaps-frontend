@@ -54,6 +54,9 @@ export class Authservice {
   createPassword(payload: any): Observable<any> {
     return this.apiService.post<any>('auth/create-password', payload);
   }
+    forgotPassword(payload: any) {
+    return this.apiService.post<any>('auth/forgot-password', payload);
+  }
 
 }
 
