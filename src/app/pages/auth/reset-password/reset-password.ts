@@ -137,7 +137,7 @@ export class ResetPassword {
     // NOTE:
     // Your current Authservice does not yet have a "confirm reset password" API method.
     // Add one like: this.apiService.post('auth/reset-password/confirm', payload)
-    this.authService.createPassword(payload).subscribe({
+    this.authService.resetPassword(payload).subscribe({
       next: () => {
         this.isLoading = false;
         this.successDialog = true;

@@ -20,11 +20,7 @@ export interface AuthResponse {
     token?: string;
   };
 }
-export interface ResetPasswordPayload {
-  email: string;
-  password: string;
-  confirmPassword: string;
-}
+
 export interface VerifyOtpPayload {
   email: string;
   code: string;
@@ -45,9 +41,6 @@ export class Authservice {
     return this.apiService.post<AuthResponse>('auth/login', payload);
   }
 
-  resetPassword(payload: ResetPasswordPayload): Observable<AuthResponse> {
-    return this.apiService.post<AuthResponse>('auth/reset-password', payload);
-  }
   verifyActivationCode(payload: VerifyOtpPayload): Observable<any> {
     return this.apiService.post<any>('auth/verify-activation-code', payload);
   }
@@ -56,6 +49,9 @@ export class Authservice {
   }
     forgotPassword(payload: any) {
     return this.apiService.post<any>('auth/forgot-password', payload);
+  }
+    resetPassword(payload: any) {
+    return this.apiService.post<any>('auth/reset-password', payload);
   }
 
 }
