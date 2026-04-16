@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DashboardData } from '../../service/dashboard-data';
 import { Subscription } from 'rxjs';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -19,7 +19,7 @@ export class StatsWidget implements OnInit, OnDestroy {
     todayGain = 0;
     private subscription?: Subscription;
 
-    constructor(private dashboardData: DashboardData) {}
+    constructor(private dashboardData: DashboardData ,  private router: Router) {}
 
     ngOnInit(): void {
         // Subscribe to user data from API via BehaviorSubject
@@ -36,6 +36,9 @@ export class StatsWidget implements OnInit, OnDestroy {
             }
         });
     }
+      goTo(path: string): void {
+        this.router.navigate([path]);
+      }
     ngOnDestroy(): void {
         if (this.subscription) {
             this.subscription.unsubscribe();
