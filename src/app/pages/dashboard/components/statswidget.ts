@@ -2,11 +2,13 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DashboardData } from '../../service/dashboard-data';
 import { Subscription } from 'rxjs';
+import { RouterModule } from '@angular/router';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
     standalone: true,
     selector: 'app-stats-widget',
-    imports: [CommonModule],
+    imports: [CommonModule,RouterModule,ButtonModule],
     templateUrl: './statswidget.html'
 })
 export class StatsWidget implements OnInit, OnDestroy {
