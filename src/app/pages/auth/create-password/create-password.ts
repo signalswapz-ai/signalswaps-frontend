@@ -44,7 +44,7 @@ export class CreatePassword {
   getEmailRegister(): void {
     const email = localStorage.getItem('email-register');
     if (email) {
-      this.displayEmail = email.trim().toLowerCase();
+      this.displayEmail = email.trim();
     }
   }
   isPasswordValid(): boolean {

@@ -44,7 +44,7 @@ export class VerificationNewRegister implements OnInit {
   getEmailRegister(): void {
     const email = localStorage.getItem('email-register');
     if (email) {
-      this.displayEmail = email.trim().toLowerCase();
+      this.displayEmail = email.trim();
     }
   }
 
@@ -64,7 +64,7 @@ export class VerificationNewRegister implements OnInit {
       if (!this.isCodeComplete()) return;
       this.isLoading = true;
       const payload = {
-        email: this.displayEmail.trim().toLowerCase(),
+        email: this.displayEmail.trim(),
         code: this.verificationCode?.trim()
       };
       console.log(payload);
