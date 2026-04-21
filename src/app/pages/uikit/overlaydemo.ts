@@ -1,18 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { DashboardData } from '../service/dashboard-data';
-import { Subscription } from 'rxjs';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
     selector: 'app-overlay-demo',
     standalone: true,
-    imports: [CommonModule, TableModule],
+    imports: [CommonModule, TableModule,DialogModule],
     templateUrl: './overlaydemo.html'
 })
-export class OverlayDemo implements OnInit, OnDestroy {
+export class OverlayDemo implements OnInit {
     tradeHistory: any[] = [];
-    private subscription?: Subscription;
+
+    // dialog for trade
+    displayTradeDialog = false;
+    selectedTrade: any | null = null;
 
     constructor(
         private dashboardData: DashboardData
@@ -21,6 +24,15 @@ export class OverlayDemo implements OnInit, OnDestroy {
     ngOnInit() {
         // Fetch trade history from API
         this.getTradeHistory();
+    }
+
+      openTradeDialog(trade: any): void {
+        this.selectedTrade = trade;
+        this.displayTradeDialog = true;
+    }
+    closeTradeDialog(): void {
+        this.displayTradeDialog = false;
+        this.selectedTrade = null;
     }
 
     getTradeHistory() {
@@ -43,12 +55,6 @@ export class OverlayDemo implements OnInit, OnDestroy {
             }
         } catch (error) {
             console.error('Error parsing user data:', error);
-        }
-    }
-
-    ngOnDestroy(): void {
-        if (this.subscription) {
-            this.subscription.unsubscribe();
         }
     }
 }
