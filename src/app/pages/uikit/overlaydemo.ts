@@ -18,15 +18,7 @@ export class OverlayDemo implements OnInit, OnDestroy {
         private dashboardData: DashboardData
     ) {}
 
-    ngOnInit(){
-        // Subscribe to trade history observable
-        this.subscription = this.dashboardData.tradeHistory$.subscribe((data) => {
-            if (data) {
-                const history = data?.tradeHistory || [];
-                this.tradeHistory = [...history].reverse(); 
-            }
-        });
-        
+    ngOnInit() {
         // Fetch trade history from API
         this.getTradeHistory();
     }
@@ -34,15 +26,14 @@ export class OverlayDemo implements OnInit, OnDestroy {
     getTradeHistory() {
         const user = localStorage.getItem('user');
         if (!user) return;
-        
         try {
             const userData = JSON.parse(user);
             const userEmail = userData?.data?.user?.email || userData?.user?.email;
-            
             if (userEmail) {
                 this.dashboardData.getTradeHistory(userEmail).subscribe({
                     next: (res) => {
                         console.log("trade history", res);
+                        this.tradeHistory = res.data;
                         // Data will be automatically updated via subscription
                     },
                     error: (err) => {

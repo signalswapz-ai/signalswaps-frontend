@@ -82,27 +82,17 @@ constructor(private apiService: Apiservice, private http: HttpClient) {
             return this.userDataSubject.value;
         }
 
-        updateUserBalanceAndProfit(updateData: {
-            email: string;
-            balance: number;
-            todayPnl: number;
-            todayGain: number;
-            coinname: string;
-            timing: string;
-            direction: 'up' | 'down';
-            date: string;
-            createdAt: string;
-        }): Observable<any> {
-            return this.apiService.put<any>('user/update-user-data', updateData).pipe(
+        updateUserBalanceAndProfit(payload:any): Observable<any> {
+            return this.apiService.post<any>('spot-trade/create', payload).pipe(
                 tap(() => {
                     // Refresh user data after update
-                    this.getUserData(updateData.email).subscribe();
+                    this.getUserData(payload.email).subscribe();
                 })
             );
         }
 
         getTradeHistory(email: string): Observable<any> {
-            return this.apiService.post(`user/trade/history`, { email: email }).pipe(
+            return this.apiService.post(`spot-trade/list`, { email: email }).pipe(
                 tap((res) => {
                     // Emit to subscribers
                     this.tradeHistorySubject.next(res);
