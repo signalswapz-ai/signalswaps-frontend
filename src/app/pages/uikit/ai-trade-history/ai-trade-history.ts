@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 })
 export class AiTradeHistory {
   AItradeHistory: any[] = [];
-  UserEmail: string = '';
+  email: string = '';
 
   constructor(private aitrading: AItrading) { }
   ngOnInit() {
@@ -24,13 +24,13 @@ export class AiTradeHistory {
     const userData = JSON.parse(localData || '{}');
     const user = userData?.data?.user || null;
     const userBalance = user?.balance || 0;
-    this.UserEmail = user?.email || '';
+    this.email = user?.email || '';
     return userBalance;
   }
 
   getAItradeHistory() {
     this.fetchUserUserData();
-    this.aitrading.getHistory(this.UserEmail).subscribe((res) => {
+    this.aitrading.getHistory(this.email).subscribe((res) => {
       this.AItradeHistory = res.data;
     });
   }

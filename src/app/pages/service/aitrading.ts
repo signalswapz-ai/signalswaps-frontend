@@ -11,7 +11,7 @@ export class AItrading {
 
   constructor(private apiService: Apiservice, private http: HttpClient) {}
   
-  getHistory(userEmail: string) {
-    return this.apiService.post<any>(`ai-trade/user-ai-history`, { userEmail });
+  getHistory(email: string) {
+    return this.apiService.post<any>(`ai-trade/list`, { email: email });
   }
 }

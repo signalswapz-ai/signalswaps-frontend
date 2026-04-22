@@ -17,6 +17,7 @@ import { MenuDemo } from './menudemo';
 import { AiTradeHistory } from './ai-trade-history/ai-trade-history';
 import { DepositHistory } from './deposit-history/deposit-history';
 import { WithdrawalHistory } from './withdrawal-history/withdrawal-history';
+import { AiTrading } from './ai-trading/ai-trading';
 
 export default [
     { path: 'deposit', data: { breadcrumb: 'Button' }, component: ButtonDemo },
@@ -26,7 +27,7 @@ export default [
     { path: 'file', data: { breadcrumb: 'File' }, component: FileDemo },
     { path: 'market', data: { breadcrumb: 'Form Layout' }, component: FormLayoutDemo },
     { path: 'support', data: { breadcrumb: 'Input' }, component: InputDemo },
-    { path: 'ai-trading', data: { breadcrumb: 'List' }, component: ListDemo },
+    { path: 'ai-trading', data: { breadcrumb: 'List' }, component: AiTrading },
     { path: 'ai-trade-history', data: { breadcrumb: 'AI Trade History' }, component: AiTradeHistory },
     { path: 'media', data: { breadcrumb: 'Media' }, component: MediaDemo },
     { path: 'message', data: { breadcrumb: 'Message' }, component: MessagesDemo },
