@@ -94,11 +94,13 @@ export class PanelsDemo implements AfterViewInit, OnDestroy {
     ];
 
     returnCards = [
-        { time: '30 Seconds', return: '5.00%', min: 200, max: 4000, returnPercent: 5, seconds: 30 },
-        { time: '60 Seconds', return: '10.00%', min: 4000, max: 20000, returnPercent: 10, seconds: 60 },
-        { time: '90 Seconds', return: '20.00%', min: 20000, max: 60000, returnPercent: 20, seconds: 90 },
-        { time: '120 Seconds', return: '30.00%', min: 60000, max: 120000, returnPercent: 30, seconds: 120 },
-        { time: '180 Seconds', return: '40.00%', min: 120000, max: 180000, returnPercent: 40, seconds: 180 }
+        // { time: '30 Seconds', return: '5.00%', min: 200, max: 4000, returnPercent: 5, seconds: 30 },
+        // { time: '60 Seconds', return: '10.00%', min:500, max: 20000, returnPercent: 10, seconds: 60 },
+        // { time: '90 Seconds', return: '20.00%', min: 20000, max: 60000, returnPercent: 20, seconds: 90 },
+        { time: '60 Seconds', return: '30.00%', min: 500, max: 120000, returnPercent: 30, seconds: 60 },
+        { time: '120 Seconds', return: '40.00%', min: 120000, max: 180000, returnPercent: 40, seconds: 120 },
+        { time: '180 Seconds', return: '50.00%', min: 180000, max: 240000, returnPercent: 50, seconds: 180 },
+        { time: '240 Seconds', return: '60.00%', min: 240000, max: 300000, returnPercent: 60, seconds: 240 }
     ];
 
     // api respone for trade
@@ -144,7 +146,7 @@ export class PanelsDemo implements AfterViewInit, OnDestroy {
             return '';
         }
     }
-// get the user data for trade
+    // get the user data for trade
     private fetchUserData(): void {
         const email = this.getUserEmail();
         if (email) {
@@ -201,7 +203,7 @@ export class PanelsDemo implements AfterViewInit, OnDestroy {
             raw === undefined ||
             Number.isNaN(amountNum) ||
             amountNum <= 0;
-        }
+    }
 
     // Calculate expected return based on user input and selected card
     onAmountChange(): void {
@@ -266,7 +268,7 @@ export class PanelsDemo implements AfterViewInit, OnDestroy {
             const dollarAmount = enteredAmountNumber;
             const returnAmount = (dollarAmount * selectedCard.returnPercent) / 100;
             console.log(returnAmount);
-            
+
 
             // Store trade information
             this.lastTradeAmount = enteredAmountNumber;
@@ -338,7 +340,7 @@ export class PanelsDemo implements AfterViewInit, OnDestroy {
     }
 
     // trade start here
-    onStartSpotTrade(data: any) {    
+    onStartSpotTrade(data: any) {
         const direction = data == 'down' ? 'down' : 'up';
         this.userSelectedDirection = direction;
         this.checkBalanceAndTrade(direction);
@@ -424,9 +426,9 @@ export class PanelsDemo implements AfterViewInit, OnDestroy {
         const newBalance = profitType === 'up' ? currentBalance + returnAmount : Math.max(0, currentBalance - returnAmount)
 
 
-        console.log("entered value" ,tradeAmount , "return amount",returnAmount ,"user balance" ,currentBalance , "profitype" , profitType , 'AFTER Profit balance' ,newBalance);
+        console.log("entered value", tradeAmount, "return amount", returnAmount, "user balance", currentBalance, "profitype", profitType, 'AFTER Profit balance', newBalance);
 
-        
+
         // Get coin name from symbol (e.g., "BINANCE:BTCUSDT" -> "BTC")
         const coinname = this.getCoinName(this.currentSymbol);
 
