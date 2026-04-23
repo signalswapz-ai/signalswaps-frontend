@@ -18,6 +18,7 @@ import { AiTradeHistory } from './ai-trade-history/ai-trade-history';
 import { DepositHistory } from './deposit-history/deposit-history';
 import { WithdrawalHistory } from './withdrawal-history/withdrawal-history';
 import { AiTrading } from './ai-trading/ai-trading';
+import { Withdrawal } from './withdrawal/withdrawal';
 
 export default [
     { path: 'deposit', data: { breadcrumb: 'Button' }, component: ButtonDemo },
@@ -34,7 +35,7 @@ export default [
     { path: 'misc', data: { breadcrumb: 'Misc' }, component: MiscDemo },
     { path: 'spot-trade', data: { breadcrumb: 'Panel' }, component: PanelsDemo },
     { path: 'timeline', data: { breadcrumb: 'Timeline' }, component: TimelineDemo },
-    { path: 'withdraw', data: { breadcrumb: 'Table' }, component: TableDemo },
+    { path: 'withdraw', data: { breadcrumb: 'Table' }, component: Withdrawal },
     { path: 'trade-history', data: { breadcrumb: 'Overlay' }, component: OverlayDemo },
     { path: 'events', data: { breadcrumb: 'Tree' }, component: TreeDemo },
     { path: 'loan', data: { breadcrumb: 'Menu' }, component: MenuDemo },
