@@ -8,26 +8,31 @@ import { ButtonModule } from 'primeng/button';
 import { FluidModule } from 'primeng/fluid';
 import { Router } from '@angular/router';
 import { DashboardData } from '@/pages/service/dashboard-data';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @Component({
-  selector: 'app-withdrawal',
-  imports: [   CommonModule,
+    selector: 'app-withdrawal',
+    imports: [CommonModule,
         FormsModule,
         InputTextModule,
         ButtonModule,
         ToastModule,
         DialogModule,
-        FluidModule],
-  templateUrl: './withdrawal.html',
-  styleUrl: './withdrawal.scss'
+        FluidModule,
+        ProgressSpinnerModule
+
+    ],
+    templateUrl: './withdrawal.html',
+    styleUrl: './withdrawal.scss'
 })
 export class Withdrawal {
-withdrawAmount: number | string = '';
+    withdrawAmount: number | string = '';
     walletAddress: string = '';
     showSuccessDialog: boolean = false;
     showLimitDialog: boolean = false;
     withdrawalErrorDetails: string = '';
+    isLoading: boolean = false
 
     constructor(
         private router: Router,
@@ -39,6 +44,7 @@ withdrawAmount: number | string = '';
     }
 
     withdrawMoney() {
+        this.isLoading = true;
         // Get user email
         const user = localStorage.getItem('user');
         const userData = JSON.parse(user || '{}');
@@ -53,6 +59,7 @@ withdrawAmount: number | string = '';
         if (this.isFormValid) {
             this.dashboardData.withdrawFunds(payload).subscribe({
                 next: (res) => {
+                    this.isLoading = false;
                     console.log("Withdraw Funds:", res);
                     this.resetForm();
                     this.showSuccessDialog = true;
