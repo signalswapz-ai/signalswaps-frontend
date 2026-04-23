@@ -109,7 +109,7 @@ constructor(private apiService: Apiservice, private http: HttpClient) {
         }
 
         withdrawFunds(payload: any): Observable<any> {
-            return this.apiService.post(`withdraw/creates`, payload)
+            return this.apiService.post(`withdraw/create`, payload)
         }
 
         AIupdateUserBalance(payload:any): Observable<any> {

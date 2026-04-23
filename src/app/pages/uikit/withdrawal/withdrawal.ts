@@ -66,6 +66,7 @@ export class Withdrawal {
 
                 },
                 error: (err) => {
+                    this.isLoading = false;
                     this.resetForm();
                     this.withdrawalErrorDetails = err.error.message || `Today's loan application limit has been reached. Please try again tomorrow.`;
                     this.showLimitDialog = true;
