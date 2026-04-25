@@ -186,12 +186,6 @@
                 {{ (selectedTrade.finalAmount ?? selectedTrade.newBalance ?? 0) | currency:'USD':'symbol':'1.0-0' }}
             </span>
         </div>
-        <div class="flex justify-between border-b border-surface-200 dark:border-surface-700 pb-2">
-            <span class="text-surface-500">Post AI Trade Balance</span>
-            <span class="font-semibold text-emerald-600 dark:text-emerald-400">
-                {{ (selectedTrade.postAITradeBalance ?? selectedTrade.newBalance ?? 0) | currency:'USD':'symbol':'1.0-0' }}
-            </span>
-        </div>
         
 
         <div class="flex justify-between border-b border-surface-200 dark:border-surface-700 pb-2">

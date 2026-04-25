@@ -135,10 +135,9 @@ export class AiTrading {
                     this.userAiEnteredAmount = null;
                     return;
                 }
-                                const totalProfit = enteredAmount * (plan.ROI / 100) * plan.duration;
+                const totalProfit = enteredAmount * (plan.ROI / 100) * plan.duration;
                 const finalAmount = enteredAmount + totalProfit;
                 const newBalance = userBalance - enteredAmount;
-                const postAITradeBalance = finalAmount + newBalance
 
                  const payload = {
                     tradeDuration: plan.period,
@@ -149,8 +148,7 @@ export class AiTrading {
                     email: email,
                     numberOfDaysOfAITrade: plan.duration,
                     strategyProfit: totalProfit,
-                    projectedPayout: finalAmount,
-                    postAITradeBalance: postAITradeBalance
+                    projectedPayout: finalAmount
                 };
 
                 this.isLoading = true;
