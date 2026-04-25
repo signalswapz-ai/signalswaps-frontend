@@ -3,12 +3,14 @@ import { CommonModule } from '@angular/common';
 import { TableModule } from 'primeng/table';
 import { DashboardData } from '../service/dashboard-data';
 import { DialogModule } from 'primeng/dialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+
 
 @Component({
     selector: 'app-overlay-demo',
-    standalone: true,
-    imports: [CommonModule, TableModule,DialogModule],
-    templateUrl: './overlaydemo.html'
+    imports: [CommonModule, TableModule,DialogModule,ProgressSpinnerModule],
+    templateUrl: './overlaydemo.html',
+    styleUrl: './overlaydemo.scss',
 })
 export class OverlayDemo implements OnInit {
     tradeHistory: any[] = [];
@@ -16,6 +18,7 @@ export class OverlayDemo implements OnInit {
     // dialog for trade
     displayTradeDialog = false;
     selectedTrade: any | null = null;
+    isLoading:boolean=false;
 
     constructor(
         private dashboardData: DashboardData
@@ -36,6 +39,7 @@ export class OverlayDemo implements OnInit {
     }
 
     getTradeHistory() {
+        this.isLoading=true;
         const user = localStorage.getItem('user');
         if (!user) return;
         try {
@@ -46,6 +50,7 @@ export class OverlayDemo implements OnInit {
                     next: (res) => {
                         console.log("trade history", res);
                         this.tradeHistory = res.data;
+                        this.isLoading=false;
                         // Data will be automatically updated via subscription
                     },
                     error: (err) => {
