@@ -61,7 +61,8 @@
                         Enter Your Amount Here <span class="text-red-500">*</span>
                     </label>
                     <p-inputnumber id="userAiEnteredAmount" [(ngModel)]="userAiEnteredAmount" name="userAiEnteredAmount"
-                        mode="decimal" [minFractionDigits]="0"
+                        mode="decimal" 
+                         [minFractionDigits]="0"
                         [maxFractionDigits]="0" prefix="$" placeholder="e.g. $10,000"
                         (ngModelChange)="validateAmount($event)">
                     </p-inputnumber>

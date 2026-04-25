@@ -4,13 +4,14 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { TagModule } from 'primeng/tag';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 
 @Component({
   selector: 'app-ai-trade-history',
   templateUrl: './ai-trade-history.html',
   styleUrl: './ai-trade-history.scss',
-  imports: [CommonModule, TableModule, DialogModule,TagModule]
+  imports: [CommonModule, TableModule, DialogModule,TagModule,ProgressSpinnerModule]
 })
 export class AiTradeHistory {
   AItradeHistory: any[] = [];
@@ -18,6 +19,8 @@ export class AiTradeHistory {
   // detailed card
   displayTradeDialog = false;
   selectedTrade: any = null;
+
+  isLoading = false;
 
 
   constructor(private aitrading: AItrading) { }
@@ -43,9 +46,11 @@ export class AiTradeHistory {
   }
 
   getAItradeHistory() {
+    this.isLoading=true;
     this.fetchUserUserData();
     this.aitrading.getHistory(this.email).subscribe((res) => {
       this.AItradeHistory = res.data;
+      this.isLoading=false;
     });
   }
   ngOnDestroy() {

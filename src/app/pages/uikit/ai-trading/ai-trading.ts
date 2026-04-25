@@ -15,21 +15,23 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { finalize } from 'rxjs/operators';
 
 interface AITradingData {
-    period: string;
+     period: string;
     amount: string;
     minAmount: number;
     maxAmount: number;
     daily_roi: string;
     duration: number;
+    ROI: number;
 }
 
 const aitradingData: AITradingData[] = [
-    { period: '5 Days AI Trade', amount: '2,000 - 10,000 USDT', minAmount: 2000, maxAmount: 10000, daily_roi: '0.6%', duration: 5 },
-    { period: '15 Days AI Trade', amount: '10,000 - 50,000 USDT', minAmount: 10000, maxAmount: 50000, daily_roi: '0.9%', duration: 15 },
-    { period: '30 Days AI Trade', amount: '50,000 - 100,000 USDT', minAmount: 50000, maxAmount: 100000, daily_roi: '1.2%', duration: 30 },
-    { period: '60 Days AI Trade', amount: '100,000 - 200,000 USDT', minAmount: 100000, maxAmount: 200000, daily_roi: '1.5%', duration: 60 },
-    { period: '120 Days AI Trade', amount: '200,000 - 500,000 USDT', minAmount: 200000, maxAmount: 500000, daily_roi: '2.2%', duration: 120 }
+    { period: '5 Days AI Trade', amount: '2,000 - 10,000 USDT', minAmount: 2000, maxAmount: 10000, daily_roi: '0.6%', ROI:0.6, duration: 5 },
+    { period: '15 Days AI Trade', amount: '10,000 - 50,000 USDT', minAmount: 10000, maxAmount: 50000, daily_roi: '0.9%', ROI:0.9, duration: 15 },
+    { period: '30 Days AI Trade', amount: '50,000 - 100,000 USDT', minAmount: 50000, maxAmount: 100000, daily_roi: '1.2%', ROI:1.2, duration: 30 },
+    { period: '60 Days AI Trade', amount: '100,000 - 200,000 USDT', minAmount: 100000, maxAmount: 200000, daily_roi: '1.5%', ROI:1.5, duration: 60 },
+    { period: '120 Days AI Trade', amount: '200,000 - 500,000 USDT', minAmount: 200000, maxAmount: 500000, daily_roi: '2.2%', ROI:2.2, duration: 120 }
 ];
+
 
 @Component({
   selector: 'app-ai-trading',
@@ -133,15 +135,22 @@ export class AiTrading {
                     this.userAiEnteredAmount = null;
                     return;
                 }
+                                const totalProfit = enteredAmount * (plan.ROI / 100) * plan.duration;
+                const finalAmount = enteredAmount + totalProfit;
+                const newBalance = userBalance - enteredAmount;
+                const postAITradeBalance = finalAmount + newBalance
 
-                const payload = {
-                    AiTradeDuration: plan.period,
-                    userAiEnteredAmount: enteredAmount,
-                    userOldBalance: userBalance,
-                    afterAITradeUserBalance: userBalance - enteredAmount,
-                    dailyROI: plan.daily_roi,
+                 const payload = {
+                    tradeDuration: plan.period,
+                    investedAmount: enteredAmount,
+                    balanceBeforeAITrade: userBalance,
+                    balanceAfterAITrade: newBalance,
+                    dailyAIROI: plan.ROI,
                     email: email,
-                    tradeDurationInDays: plan.duration
+                    numberOfDaysOfAITrade: plan.duration,
+                    strategyProfit: totalProfit,
+                    projectedPayout: finalAmount,
+                    postAITradeBalance: postAITradeBalance
                 };
 
                 this.isLoading = true;
