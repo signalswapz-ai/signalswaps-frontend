@@ -16,7 +16,7 @@ export class WithdrawalHistory {
   withdrawHistory: any[] = [];
   selectedWithdraw: any;
   showCurrentWithdraw = false;
-  userEmail: string = "";
+  email: string = "";
 
   constructor(private withdrawService: Withdraw) { }
 
@@ -28,12 +28,13 @@ export class WithdrawalHistory {
     const localData = localStorage.getItem('user');
     const userData = JSON.parse(localData || '{}');
     const user = userData?.data?.user || null;
-    this.userEmail = user?.email || '';
+    this.email = user?.email || '';
   }
 
   getUserWithdrawList() {
+    
     this.fetchUserUserData();
-    this.withdrawService.getWithdrawHistory(this.userEmail).subscribe((res) => {
+    this.withdrawService.getWithdrawHistory(this.email).subscribe((res) => {
       this.withdrawHistory = res.data;
     });
   }

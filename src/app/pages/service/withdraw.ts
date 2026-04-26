@@ -9,8 +9,8 @@ export class Withdraw {
 
   constructor(private apiService: Apiservice, private http: HttpClient) { }
 
-  getWithdrawHistory(userEmail: string) {
-    return this.apiService.post<any>(`withdraw/list`, { userEmail });
+  getWithdrawHistory(email: string) {
+    return this.apiService.post<any>(`withdraw/list`, { email });
   }
 
 }
