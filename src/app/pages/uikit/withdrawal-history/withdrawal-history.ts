@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { Withdraw } from '@/pages/service/withdraw';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 type WithdrawStatus = 'Completed' | 'Pending' | 'Failed';
 
 
 @Component({
   selector: 'app-withdrawal-history',
-  imports: [CommonModule, DialogModule],
+  imports: [CommonModule, DialogModule,ProgressSpinnerModule],
   templateUrl: './withdrawal-history.html',
   styleUrl: './withdrawal-history.scss'
 })
@@ -17,6 +18,7 @@ export class WithdrawalHistory {
   selectedWithdraw: any;
   showCurrentWithdraw = false;
   email: string = "";
+  isLoading: boolean = false;
 
   constructor(private withdrawService: Withdraw) { }
 
@@ -32,10 +34,11 @@ export class WithdrawalHistory {
   }
 
   getUserWithdrawList() {
-    
+    this.isLoading=true;
     this.fetchUserUserData();
     this.withdrawService.getWithdrawHistory(this.email).subscribe((res) => {
       this.withdrawHistory = res.data;
+      this.isLoading=false;
     });
   }
 
