@@ -16,7 +16,7 @@ export class DepositHistory {
   depositHistory: any[] = [];
   selectedDeposit: any = {};
   showCurrentDeposit = false;
-  userEmail:string="";
+  email:string="";
 
   constructor(private depositService:Deposit){
 
@@ -30,13 +30,13 @@ export class DepositHistory {
     const userData = JSON.parse(localData || '{}');
     const user = userData?.data?.user || null;
     const userBalance = user?.balance || 0;
-    this.userEmail = user?.email || '';
+    this.email = user?.email || '';
     return userBalance;
   }
 
   getUserDepositList(){
     this.fetchUserUserData();
-    this.depositService.getDepositHistory(this.userEmail).subscribe((res) => {
+    this.depositService.getDepositHistory(this.email).subscribe((res) => {
       this.depositHistory = res.data;
     });
   }

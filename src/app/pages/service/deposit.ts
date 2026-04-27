@@ -7,8 +7,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class Deposit {  
   constructor(private apiService: Apiservice, private http: HttpClient) { }
-  getDepositHistory(userEmail: string) {
-    return this.apiService.post<any>(`deposit/list`, { userEmail });
+  getDepositHistory(email: string) {
+    return this.apiService.post<any>(`deposit/list`, { email });
   }
 }
 
