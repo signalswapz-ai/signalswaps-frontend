@@ -2,12 +2,13 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { Deposit } from '@/pages/service/deposit';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 type DepositStatus = 'Completed' | 'Pending' | 'Failed';
 
 @Component({
   selector: 'app-deposit-history',
-  imports: [CommonModule,DialogModule],
+  imports: [CommonModule,DialogModule,ProgressSpinnerModule],
   templateUrl: './deposit-history.html',
   styleUrl: './deposit-history.scss'
 })
@@ -17,6 +18,7 @@ export class DepositHistory {
   selectedDeposit: any = {};
   showCurrentDeposit = false;
   email:string="";
+  isLoading = false;
 
   constructor(private depositService:Deposit){
 
@@ -35,9 +37,11 @@ export class DepositHistory {
   }
 
   getUserDepositList(){
+    this.isLoading = true;
     this.fetchUserUserData();
     this.depositService.getDepositHistory(this.email).subscribe((res) => {
       this.depositHistory = res.data;
+      this.isLoading = false;
     });
   }
 
