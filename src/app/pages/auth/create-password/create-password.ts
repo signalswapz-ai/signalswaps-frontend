@@ -9,6 +9,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { RippleModule } from 'primeng/ripple';
 import { Authservice } from '../service/authservice';
 import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-create-password',
@@ -22,12 +23,14 @@ import { DialogModule } from 'primeng/dialog';
     PasswordModule,
     ProgressSpinnerModule,
     RippleModule,
-    DialogModule
+    DialogModule,
+    InputTextModule
   ],
   templateUrl: './create-password.html',
   styleUrl: './create-password.scss',
 })
 export class CreatePassword {
+  username = '';
   password = '';
   isLoading = false;
   errorDialog = false;
@@ -55,12 +58,18 @@ export class CreatePassword {
     return true;
   }
 
+  isUsernameValid(): boolean {
+    const u = this.username?.trim() ?? '';
+    return u.length >= 3;
+  }
+
   onContinue(): void {
-    if (!this.isPasswordValid()) return;
+    if (!this.isUsernameValid() || !this.isPasswordValid()) return;
     this.isLoading = true;
     const payload = {
       email: this.displayEmail,
-      password: this.password
+      password: this.password,
+      username: this.username
     };
     console.log(payload);
     this.authService.createPassword(payload).subscribe({
