@@ -32,7 +32,7 @@ export class AppTopbar {
                 const userData = localStorage.getItem('user');
                 if (userData) {
                     const parsedData = JSON.parse(userData);
-                    this.userName = parsedData?.data?.user?.name || '';
+                    this.userName = parsedData?.data?.user?.username || '';
                 }
             } catch (error) {
                 console.error('Error parsing user data from localStorage:', error);
