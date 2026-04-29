@@ -58,10 +58,9 @@ export class ResetPassword {
   }
 
   getEmailForgotPassword(): void {
-    const email = localStorage.getItem('email-forgot-password');
-    if (email) {
-      this.email = email.trim();
-    }
+    const qp = this.route.snapshot.queryParamMap;
+    // Only email from query param
+    this.email = (qp.get('email') ?? '').trim();
   }
 
   validatePassword(): void {
