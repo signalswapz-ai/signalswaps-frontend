@@ -19,6 +19,8 @@ import { DepositHistory } from './deposit-history/deposit-history';
 import { WithdrawalHistory } from './withdrawal-history/withdrawal-history';
 import { AiTrading } from './ai-trading/ai-trading';
 import { Withdrawal } from './withdrawal/withdrawal';
+import { CommodityTrading } from './commodity-trading/commodity-trading';
+import { MultiassetTradeHistory } from './multiasset-trade-history/multiasset-trade-history';
 
 export default [
     { path: 'deposit', data: { breadcrumb: 'Button' }, component: ButtonDemo },
@@ -30,6 +32,8 @@ export default [
     { path: 'support', data: { breadcrumb: 'Input' }, component: InputDemo },
     { path: 'ai-trading', data: { breadcrumb: 'List' }, component: AiTrading },
     { path: 'ai-trade-history', data: { breadcrumb: 'AI Trade History' }, component: AiTradeHistory },
+        { path: 'commodity-trading', data: { breadcrumb: 'List' }, component: CommodityTrading },
+    { path: 'multiasset-trade-history', data: { breadcrumb: 'List' }, component: MultiassetTradeHistory },
     { path: 'media', data: { breadcrumb: 'Media' }, component: MediaDemo },
     { path: 'message', data: { breadcrumb: 'Message' }, component: MessagesDemo },
     { path: 'misc', data: { breadcrumb: 'Misc' }, component: MiscDemo },

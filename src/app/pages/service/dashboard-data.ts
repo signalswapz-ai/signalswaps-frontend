@@ -90,6 +90,15 @@ constructor(private apiService: Apiservice, private http: HttpClient) {
                 })
             );
         }
+        
+        updateCommodityTrade(payload:any): Observable<any> {
+            return this.apiService.post<any>('commodity-trade/create', payload).pipe(
+                tap(() => {
+                    // Refresh user data after update
+                    this.getUserData(payload.email).subscribe();
+                })
+            );
+        }
 
         getTradeHistory(email: string): Observable<any> {
             return this.apiService.post(`spot-trade/list`, { email: email }).pipe(
@@ -98,7 +107,11 @@ constructor(private apiService: Apiservice, private http: HttpClient) {
                     this.tradeHistorySubject.next(res);
                 })
             );
-        }   
+        }
+        
+        getCommodityTradeHistory(email: string): Observable<any> {
+            return this.apiService.post(`commodity-trade/list`, { email });
+        }
 
         getCurrentTradeHistory(): any {
             return this.tradeHistorySubject.value;

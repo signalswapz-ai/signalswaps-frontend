@@ -43,6 +43,7 @@ export class AiTrading {
    aitradingData: AITradingData[] = [];
     // Crypto coin images - you can replace these with actual image paths
     cryptoCoins = [
+        { name: 'GOLD', image: 'assets/demo/images/deposit/GOLD.jpg' },
         { name: 'ETH', image: 'assets/demo/images/deposit/ETH.png' },
         { name: 'BTC', image: 'assets/demo/images/deposit/BTC.png' },
         { name: 'BNB', image: 'assets/demo/images/deposit/BNB.png' },

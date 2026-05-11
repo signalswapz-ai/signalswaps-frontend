@@ -108,6 +108,29 @@ export class AppMenu {
                     //     routerLink: ['/pages/empty']
                     // }
                 ]
+            },
+            {
+                label: 'MultiAsset Trade',
+                icon: 'pi pi-fw pi-globe', // Good for multi-market assets like oil, metals, commodities
+                routerLink: ['/pages'],
+                items: [
+                    {
+                        label: 'Start MultiAsset Trade',
+                        icon: 'pi pi-fw pi-globe',
+                        items: [
+                            {
+                                label: 'Commodity Trading',
+                                icon: 'pi pi-fw pi-chart-line',
+                                routerLink: ['/app/page/commodity-trading']
+                            },
+                            {
+                                label: 'Trade History',
+                                icon: 'pi pi-fw pi-clock',
+                                routerLink: ['/app/page/multiasset-trade-history']
+                            }
+                        ]
+                    }
+                ]
             }
             // ,{
             //     label: 'Hierarchy',
