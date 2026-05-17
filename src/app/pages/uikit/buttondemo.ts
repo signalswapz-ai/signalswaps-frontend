@@ -9,11 +9,13 @@ import { FormsModule } from '@angular/forms';
 import { FluidModule } from 'primeng/fluid';
 import { ImageModule } from 'primeng/image';
 import { ToastModule } from 'primeng/toast';
+import { DialogModule } from 'primeng/dialog';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-button-demo',
     standalone: true,
-    imports: [ButtonModule, ButtonGroupModule, SplitButtonModule,SelectModule,CommonModule,FormsModule,FluidModule,ImageModule,ToastModule],
+    imports: [ButtonModule, ButtonGroupModule, SplitButtonModule, SelectModule, CommonModule, FormsModule, FluidModule, ImageModule, ToastModule,ToastModule,DialogModule],
     templateUrl: './buttondemo.html',
     providers: [MessageService]
 })
@@ -23,21 +25,21 @@ export class ButtonDemo implements OnInit {
     loading = [false, false, false, false];
     selectedCoin: any = null;
     CoinsList: any[] = [
-                { name: "bitcoin", code: "btc", image: "assets/demo/images/deposit/BTC.png" },
-                { name: "ethereum", code: "eth", image: "assets/demo/images/deposit/ETH.png", scan:"assets/demo/images/scan/ETHV1.jpg", address: "0xDb02BCac9abE086f889C91E754DB0DdC7f0B236E" },
-                { name: "tetherBEP20", code: "usdt(bep20)", image: "assets/demo/images/deposit/USDT.png" },
-                { name: "tetherTRC20", code: "usdt(trc20)", image: "assets/demo/images/deposit/USDT.png" },
-                { name: "binancecoin", code: "bnb", image: "assets/demo/images/deposit/BNB.png" },
-                { name: "ripple", code: "xrp", image: "assets/demo/images/deposit/XRP.png" },
-                { name: "usd-coin", code: "usdc", image: "assets/demo/images/deposit/USDC.png" },
-                { name: "solana", code: "sol", image: "assets/demo/images/deposit/SOL.png" },
-                { name: "dogecoin", code: "doge", image: "assets/demo/images/deposit/DOGE.png" },
-                { name: "litecoin", code: "ltc", image: "assets/demo/images/deposit/LTC.png" }
+        { name: "bitcoin", code: "btc", image: "assets/demo/images/deposit/BTC.png" },
+        { name: "ethereum", code: "eth", image: "assets/demo/images/deposit/ETH.png", scan: "assets/demo/images/scan/ETHV1.jpg", address: "0xDb02BCac9abE086f889C91E754DB0DdC7f0B236E" },
+        { name: "tetherBEP20", code: "usdt(bep20)", image: "assets/demo/images/deposit/USDT.png" },
+        { name: "tetherTRC20", code: "usdt(trc20)", image: "assets/demo/images/deposit/USDT.png" },
+        { name: "binancecoin", code: "bnb", image: "assets/demo/images/deposit/BNB.png" },
+        { name: "ripple", code: "xrp", image: "assets/demo/images/deposit/XRP.png" },
+        { name: "usd-coin", code: "usdc", image: "assets/demo/images/deposit/USDC.png" },
+        { name: "solana", code: "sol", image: "assets/demo/images/deposit/SOL.png" },
+        { name: "dogecoin", code: "doge", image: "assets/demo/images/deposit/DOGE.png" },
+        { name: "litecoin", code: "ltc", image: "assets/demo/images/deposit/LTC.png" }
     ];
-    currentSelectedCoin:any = null;
-    selectedCoinAddress:string = '';
-    selectedCoinImage:string = '';
-    selectedCoins:any[] = [
+    currentSelectedCoin: any = null;
+    selectedCoinAddress: string = '';
+    selectedCoinImage: string = '';
+    selectedCoins: any[] = [
         { address: "bc1q0m6r3u73ft3m5km9gd0p3rpsfsrek2098mkfqh", name: "bitcoin", code: "btc", scan: "assets/demo/images/scan/BTCV1.jpg" },
         { address: "0xDb02BCac9abE086f889C91E754DB0DdC7f0B236E", name: "ethereum", code: "eth", scan: "assets/demo/images/scan/ETHV1.jpg" },
         { address: "0x5098aA32b08A5908d2e0f4cCB407aF6910A8494f", name: "tetherBEP20", code: "usdt(bep20)", scan: "assets/demo/images/scan/usdtBep20.png" },
@@ -49,7 +51,17 @@ export class ButtonDemo implements OnInit {
         { address: "DECfdniei6LEERbMZzzeZ5Y1eLr88vctRa", name: "dogecoin", code: "doge", scan: "assets/demo/images/scan/DOGE.png" },
         { address: "ltc1qxnhuxntzm473hzy3uf56xf9qwk2z8e0emtlz27", name: "litecoin", code: "ltc", scan: "assets/demo/images/scan/LTC.png" }
     ]
-   constructor(private service: MessageService) {}
+    showFaithDepositDialog = false;
+    faithDepositEnabled = true;
+    faithWireDetails = {
+        routingNumber: '101019628',
+        accountNumber: '210155229215',
+        bankName: 'Wise US Inc',
+        bankAddress: '108 W 13th St, Wilmington, DE, 19801, United States',
+        recipientFullName: 'Ecomworldwidecart Ltd'
+        // recipientAddress: '456 Business Ave, Suite 100, Wilmington, DE 19801, USA'
+    };
+    constructor(private service: MessageService,private router: Router) { }
 
     ngOnInit() {
         this.items = [{ label: 'Update', icon: 'pi pi-refresh' }, { label: 'Delete', icon: 'pi pi-times' }, { label: 'Angular.io', icon: 'pi pi-info', url: 'http://angular.io' }, { separator: true }, { label: 'Setup', icon: 'pi pi-cog' }];
@@ -57,8 +69,8 @@ export class ButtonDemo implements OnInit {
     }
     initializeSelectedValues() {
         this.selectedCoin = this.CoinsList.find(coin => coin.code === 'eth');
-        this.selectedCoinImage=this.selectedCoin.scan;
-        this.selectedCoinAddress=this.selectedCoin.address;
+        this.selectedCoinImage = this.selectedCoin.scan;
+        this.selectedCoinAddress = this.selectedCoin.address;
     }
 
     load(index: number) {
@@ -68,12 +80,32 @@ export class ButtonDemo implements OnInit {
 
     onCoinChange(event: any) {
         console.log(event);
-        this.currentSelectedCoin=this.selectedCoins.find(coin => coin.code === event.code);
-        this.selectedCoinAddress=this.currentSelectedCoin.address;
-        this.selectedCoinImage=this.currentSelectedCoin.scan;
+        this.currentSelectedCoin = this.selectedCoins.find(coin => coin.code === event.code);
+        this.selectedCoinAddress = this.currentSelectedCoin.address;
+        this.selectedCoinImage = this.currentSelectedCoin.scan;
     }
-    copyToClipboard(text: string) {
+    copyToClipboard(text: string, label?: string) {
         navigator.clipboard.writeText(text);
-        this.service.add({ severity: 'success', summary: 'Copy to Clipboard', detail: 'Address copied to clipboard successfully.' });
+        this.service.add({
+            severity: 'success',
+            summary: 'Copied',
+            detail: label ? `${label} copied to clipboard.` : 'Copied to clipboard successfully.'
+        });
+    }
+    copyFaithField(text: string, label: string, event: Event): void {
+        event.stopPropagation();
+        this.copyToClipboard(text, label);
+    }
+    openFaithDepositDialog(): void {
+        if (this.faithDepositEnabled) {
+            this.showFaithDepositDialog = true;
+        }
+    }
+    closeFaithDepositDialog(): void {
+        this.showFaithDepositDialog = false;
+    }
+    onBackToDashboard(): void {
+        this.showFaithDepositDialog = false;
+        this.router.navigate(['/app/dashboard']);
     }
 }
