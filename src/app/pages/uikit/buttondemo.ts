@@ -54,12 +54,14 @@ export class ButtonDemo implements OnInit {
     showFaithDepositDialog = false;
     faithDepositEnabled = true;
     faithWireDetails = {
-        routingNumber: '101019628',
-        accountNumber: '210155229215',
-        bankName: 'Wise US Inc',
-        bankAddress: '108 W 13th St, Wilmington, DE, 19801, United States',
-        recipientFullName: 'Ecomworldwidecart Ltd'
-        // recipientAddress: '456 Business Ave, Suite 100, Wilmington, DE 19801, USA'
+        recipientFullName: 'ECOMGLOBALCART LTD',
+        currencyAccepted: 'USD',
+        iban: 'GB33 REVO 0099 6960 5160 20',
+        bic: 'REVOGB21',
+        intermediaryBic: 'CHASGB2L',
+        recipientAddress: 'Office 12 Initial Business Centre, 12, M40 8WN, Manchester, United Kingdom',
+        bankName: 'Revolut Ltd',
+        bankAddress: '30 South Colonnade, E14 5HX, London, United Kingdom'
     };
     constructor(private service: MessageService,private router: Router) { }
 
